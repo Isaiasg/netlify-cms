@@ -61,6 +61,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.IgnorePlugin(/^unicode$/, /slug/), // Ignore Unicode symbols import for slug
     new webpack.IgnorePlugin(/^esprima$/, /js-yaml/), // Ignore Esprima import for js-yaml
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/), // Ignore all optional deps of moment.js
     new webpack.ProvidePlugin({
