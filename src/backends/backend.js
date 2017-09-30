@@ -42,7 +42,7 @@ const slugFormatter = (template = "{{slug}}", entryData) => {
     return identifier;
   };
 
-  const slug = template.replace(/\{\{([^\}]+)\}\}/g, (_, field) => {
+  let slug = template.replace(/\{\{([^\}]+)\}\}/g, (_, field) => {
     switch (field) {
       case "year":
         return date.getFullYear();
@@ -56,6 +56,10 @@ const slugFormatter = (template = "{{slug}}", entryData) => {
         return entryData.get(field, "").trim();
     }
   });
+  
+  slug = slug.toLocaleLowerCase();
+  slug = slug.nomalize('NFC');
+  slug = slug.replace(/[\s]/g, '-');
   
   return sanitize(slug, {replacement: "-"}).replace(/[.]/g, '-');
 };
